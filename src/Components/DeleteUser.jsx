@@ -1,8 +1,10 @@
 import React from 'react'
+import NavBar from './NavBar'
 
 const DeleteUser = () => {
   return (
     <div>
+        <NavBar />
         <div className="container">
             <h4 className="mt-4">Delete User</h4>
             <div className="row">
