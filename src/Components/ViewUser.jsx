@@ -5,12 +5,14 @@ import axios from "axios";
 const ViewUser = () => {
   const [UserData, ChangeData] = useState([]);
 
+ const [isloading,changeLoading] = useState(true)
 
  
 
   const fetchData = () => {
     axios.get("https://api.github.com/users").then(
         (response) => {
+          changeLoading(false)
           ChangeData(response.data)
         }
     ).catch(
@@ -41,7 +43,10 @@ const ViewUser = () => {
                   <th scope="col">html_url</th>
                 </tr>
               </thead>
-              <tbody>
+
+              { isloading ? (<div class="spinner-border text-success" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>) : (   <tbody>
                 {UserData.map((value, index) => {
                   return (
                     <tr>
@@ -52,7 +57,8 @@ const ViewUser = () => {
                     </tr>
                   );
                 })}
-              </tbody>
+              </tbody>) }
+           
             </table>
           </div>
         </div>
