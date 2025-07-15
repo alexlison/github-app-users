@@ -5,26 +5,23 @@ import axios from "axios";
 const ViewUser = () => {
   const [UserData, ChangeData] = useState([]);
 
- const [isloading,changeLoading] = useState(true)
-
- 
+  const [isloading, changeLoading] = useState(true);
 
   const fetchData = () => {
-    axios.get("https://api.github.com/users").then(
-        (response) => {
-          changeLoading(false)
-          ChangeData(response.data)
-        }
-    ).catch(
-        (error) => {
-            alert(error)
-            
-        }
-    )
-  }
+    axios
+      .get("https://api.github.com/users")
+      .then((response) => {
+        changeLoading(false);
+        ChangeData(response.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
-  useEffect(() => { fetchData() },[])
-
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -36,29 +33,37 @@ const ViewUser = () => {
             <table class="table table-success table-striped">
               <thead>
                 <tr>
-                  <th scope="col">login</th>
                   <th scope="col">id</th>
+                  <th scope="col">login</th>
                   <th scope="col">Avatar_url</th>
-
                   <th scope="col">html_url</th>
+                  <th scope="col">Followers_url</th>
                 </tr>
               </thead>
 
-              { isloading ? (<div class="spinner-border text-success" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div>) : (   <tbody>
-                {UserData.map((value, index) => {
-                  return (
-                    <tr>
-                      <td>{value.login}</td>
-                      <td>{value.id}</td>
-                      <td>{value.avatar_url}</td>
-                      <td>{value.html_url}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>) }
-           
+              {isloading ? (
+                <div class="spinner-border text-success" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                <tbody>
+                  {UserData.map((value, index) => {
+                    return (
+                      <tr>
+                        <td>{value.id}</td>
+                        <td>{value.login}</td>
+                        <td><img className="rounded-circle" src={value.avatar_url} height="50px" width="50px" /></td>
+                        <td>{value.followers_url}</td>
+
+                        <td>{value.html_url}</td>
+
+                           
+                        
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              )}
             </table>
           </div>
         </div>
