@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavBar from './NavBar'
 
 const DeleteUser = () => {
+
+const [Input,ChangeInput] = useState(
+    {username:""}
+)
+
+const InputHandler = (event) => {
+    ChangeInput({...Input,[event.target.name]:event.target.value})
+}
+
+const readValues = ()=> {
+    console.log(Input);
+    
+}
   return (
     <div>
         <NavBar />
@@ -12,10 +25,10 @@ const DeleteUser = () => {
                     <div className="row g-3">
                         <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                              <label htmlFor="" className="form-label">User Name</label>
-                             <input type="text" className="form-control" />
+                             <input type="text" className="form-control" name='username' value={Input.username} onChange={InputHandler} />
                         </div>
                         <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                            <button className="btn btn-danger">Delete</button>
+                            <button className="btn btn-danger" onClick={readValues}>Delete</button>
                         </div>
                     </div>
                 </div>
